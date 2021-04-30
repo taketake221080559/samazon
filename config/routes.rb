@@ -1,4 +1,5 @@
 #Rails.application.routes.draw do
+  #get 'reviews/create'
   #devise_for :users
   #resources :products
 
@@ -21,5 +22,7 @@ Rails.application.routes.draw do
     get "login", :to => "users/sessions#new"
     get "logout", :to => "users/sessions#destroy"
   end
-  resources :products
+  resources :products do
+    resources :reviews, only: [:create]
+  end
 end
