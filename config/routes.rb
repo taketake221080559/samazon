@@ -1,11 +1,3 @@
-#Rails.application.routes.draw do
-  #get 'reviews/create'
-  #devise_for :users
-  #resources :products
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-#end
-
 Rails.application.routes.draw do
   devise_for :users, :controllers => {
     :registrations => 'users/registrations',
@@ -23,6 +15,9 @@ Rails.application.routes.draw do
     get "logout", :to => "users/sessions#destroy"
   end
   resources :products do
+    member do
+      get :favorite
+    end
     resources :reviews, only: [:create]
   end
 end
