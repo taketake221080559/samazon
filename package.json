@@ -1,5 +1,7 @@
 {
-  "name": "samazon",
-  "private": true,
-  "dependencies": {}
+  "name": "samazon_a",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Nest <taketake221080559@gmail.com>",
+  "license": "MIT"
 }
