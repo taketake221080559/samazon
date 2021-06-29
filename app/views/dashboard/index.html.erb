@@ -1,0 +1,37 @@
+<div class="w-75">
+  <% if @sort == "month" %>
+    <h1>月別売上 <%= @total %> 件</h1>
+  <% else %>
+    <h1>日別売上 <%= @total %> 件</h1>
+  <% end %>
+    <%= form_with url: dashboard_path, method: :get, local: true, class: "form-inline" do |f| %>
+      切り替え
+      <% if @sort.present? %>
+        <%= f.select :sort, @sort_list, { selected: @sort}, { onChange: "javascript: this.form.submit();", class: "form-inline ml-2" } %>
+      <% else %>
+        <%= f.select :sort, @sort_list, {}, { onChange: "javascript: this.form.submit();", class: "form-inline ml-2" } %>
+      <% end %>
+    <% end %>
+    <div class="container mt-4">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">年月日</th>
+            <th scope="col">金額</th>
+            <th scope="col">件数</th>
+            <th scope="col">平均単価</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @billings.each do |billing| %>
+          <tr>
+            <td><%= billing[1][:billing_date] %></td>
+            <td><%= billing[1][:price_daily] %></td>
+            <td><%= billing[1][:quantity_daily] %></td>
+            <td><%= billing[1][:price_average_daily].floor(1)  %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

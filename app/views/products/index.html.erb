@@ -25,7 +25,11 @@
         <% @products.each do |product|%>
         <div class="col-3">
           <%= link_to product_path(product) do %>
-            <%= image_tag "/images/dummy.png", class: "img-thumbnail"%>
+            <% if product.image.attached? %>
+              <%= image_tag product.image, class: "img-thumbnail" %>
+            <% else %>
+              <%= image_tag "/images/dummy.png", class: "img-thumbnail" %>
+            <% end %>
           <% end %>
           <div class="row">
             <div class="col-12">

@@ -1,7 +1,11 @@
 <div class="d-flex justify-content-center">
   <div class="row w-75">
     <div class="col-5 offset-1">
-      <%= image_tag "/images/dummy.png", class: "w-100 img-fuild" %>
+     <% if @product.image.attached? %>
+        <%= image_tag @product.image, class: "w-100 img-fuild" %>
+     <% else %>
+        <%= image_tag "/images/dummy.png", class: "w-100 img-fuild" %>
+     <% end %>
     </div>
 
     <div class="col">
@@ -37,7 +41,7 @@
               <% end %>
             </div>
             <div class="col-5">
-              <%= link_to favorite_product_path, class: "btn samazon-favorite-button text-favorite w-100" do %>
+              <%= link_to favorite_product_path(@product.id), method: :post, class: "btn samazon-favorite-button text-favorite w-100" do %>
                 <i class="fa fa-heart"></i><%= current_user.likes?(@product) ? "お気に入り解除" : "お気に入り" %>
               <% end %>
             </div>
@@ -56,8 +60,10 @@
       <div class="row">
        <% @reviews.each do |review| %>
        <div class="offset-md-5 col-md-5">
+       <h3 class="review-score-color"><%= score_on_star(review.score) %></h3>
          <p class="h3"><%= review.content %></p>
-         <label><%= review.created_at %></label>
+         <h4><%= review.user.name %></h4>
+         <label><%= l review.created_at %></label>
        </div>
        <% end %>
      </div>
@@ -66,6 +72,9 @@
        <div class="row">
          <div class="offset-md-5 col-md-5">
            <%= form_with model: @review, url: product_reviews_path(@product) do |f| %>
+             <h4>評価</h4>
+             <%= f.select :score, @star_repeat_select, {}, class: "form-control m-2 review-score-color" %>
+             <h4>レビュー内容</h4>
              <%= f.text_area :content, class: "form-control m-2" %>
              <%= f.submit "レビューを追加" , class:"btn samazon-submit-button ml-2"%>
            <% end %>

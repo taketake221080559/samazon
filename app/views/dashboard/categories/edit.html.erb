@@ -1,0 +1,23 @@
+<div class="w-75">
+  <h1>カテゴリ情報更新</h1>
+
+  <%= form_with(model: @category, url: dashboard_category_path(@category), local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :name, "カテゴリ名" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, "カテゴリの説明" %>
+      <%= f.text_field :description, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :major_category_name, "カテゴリ" %>
+      <%= f.select :major_category_id, @major_categories.map { |mc| [mc.name, mc.id] }, {}, class: "form-control" %>
+    </div>
+
+    <%= f.submit "更新", class: "btn btn-danger" %>
+  <% end %>
+  <div class="mt-4"><%= link_to "カテゴリー一覧に戻る", dashboard_categories_path %></div>
+</div>

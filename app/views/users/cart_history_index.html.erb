@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <span>
+        <%= link_to "マイページ", mypage_users_path %> > お届け先変更
+      </span>
+
+      <div class="container mt-4">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">注文番号</th>
+              <th scope="col">購入日時</th>
+              <th scope="col">合計金額</th>
+              <th scope="col">詳細</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @orders.each do |billing| %>
+            <tr>
+              <td><%= billing[0] %></td>
+              <td><%= billing[1][:updated_at] %></td>
+              <td><%= billing[1][:price_total] %></td>
+              <td>
+                <%= link_to "#{ billing[0] }", mypage_cart_history_users_path(billing[0]) %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <%= paginate @orders_array %>
+    </div>
+  </div>
+</div>

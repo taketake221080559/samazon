@@ -1,0 +1,49 @@
+<% if flash[:success] %><p class="alert alert-success w-75"><%= flash[:success] %></p><% end %>
+<% if flash[:danger] %><p class="alert alert-danger w-75"><%= flash[:danger] %></p><% end %>
+<div class="w-75">
+  <h1>商品CSV登録</h1>
+  <%= form_with model: @product, url: import_csv_dashboard_products_path, local: true do |f| %>
+    <div class="d-flex flex-column">
+      <div class="d-flex flex-row">
+        <%= f.label "CSVファイルを選択", for: "file" ,class: "btn samazon-button mr-3 mb-0" %>
+        <%= f.file_field :file, onChange: "handleCSV(this.files)",style: "display: none;" %>
+        <%= f.submit "一括登録", class: "btn samazon-submit-button" %>
+      </div>
+    </div>
+    <small id="product-import-csv-filename"></small>
+  <% end %>
+
+  <div class="d-flex justify-content-between mt-3">
+    <h4 class="d-flex align-self-center mt-1 mb-0">CSVファイルフォーマット</h4>
+    <%= link_to "雛形ファイルダウンロード", import_csv_download_dashboard_products_path, class: "btn samazon-button" %>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <label class="col-3">商品ID</label>
+    <span class="col-9">新規登録の場合は空にしてください。既存の商品を更新する場合は、商品IDを指定してください。</span>
+
+    <label class="col-3">商品名</label>
+    <span class="col-9"></span>
+
+    <label class="col-3">商品説明</label>
+    <span class="col-9"></span>
+
+    <label class="col-3">価格</label>
+    <span class="col-9"></span>
+
+    <label class="col-3">カテゴリID</label>
+    <span class="col-9"></span>
+
+    <label class="col-3">オススメ商品フラグ</label>
+    <span class="col-9"></span>
+
+    <label class="col-3">送料フラグ</label>
+    <span class="col-9"></span>
+  </div>
+
+  <hr>
+</div>
+
+<%= javascript_include_tag "dashboard/products/import" %>

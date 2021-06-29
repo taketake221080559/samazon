@@ -1,0 +1,53 @@
+<div class="w-75">
+
+  <%= form_with(model: @category, url: dashboard_categories_path, local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :name, "カテゴリ名" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, "カテゴリの説明" %>
+      <%= f.text_field :description, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :major_category_id, "親カテゴリ" %>
+      <%= f.select :major_category_id, @major_categories.map { |mc| [mc.name, mc.id] }, {}, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "＋新規作成", class: "btn samazon-submit-button" %>
+    </div>
+  <% end %>
+
+  <table class="table mt-5">
+    <thead>
+      <tr>
+        <th scope="col" class="w-25">ID</th>
+        <th scope="col">カテゴリ</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @categories.each do |category| %>
+      <tr>
+        <th scope="row"><%= category.id %></td>
+        <td><%= category.name %></td>
+          <td>
+            <%= link_to "編集", edit_dashboard_category_path(category), class: "dashboard-edit-link" %>
+          </td>
+        <td>
+          <%= link_to "削除", dashboard_category_path(category), method: :delete, onclick: "event.preventDefault(); document.getElementById('logout-form').submit", class: "dashboard-delete-link" %>
+
+        </td>
+
+        <%= form_with(model: category, url: dashboard_category_path(category), method: :delete, local: true, id: "logout-form") do |f| %>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @categories %>
+</div>

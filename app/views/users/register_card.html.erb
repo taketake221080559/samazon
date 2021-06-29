@@ -1,0 +1,21 @@
+<main class="py-4 mb-5">
+
+  <div class="d-flex justify-content-center">
+    <div class="container w-50">
+      <h3>登録済みのクレジットカード</h3>
+
+      <hr>
+      <h4><%= @card[:brand] %></h4>
+      <p>有効期限: <%= "#{ @card[:exp_year] } / #{ @card[:exp_month] }" %></p>
+      <p>カード番号: ************<%= @card[:last4] %></p>
+
+      <%= form_with url: mypage_token_users_path, method: :post do |f| %>
+        <% if @card.present? %>
+        <script type="text/javascript" src="https://checkout.pay.jp/" class="payjp-button" data-key=<%= ENV['PAYJP_PUBLIC_KEY'] %> data-on-created="onCreated" data-text="カードを更新する" data-submit-text="カードを更新する"></script>
+        <% else %>
+        <script type="text/javascript" src="https://checkout.pay.jp/" class="payjp-button" data-key=<%= ENV['PAYJP_PUBLIC_KEY'] %> data-on-created="onCreated" data-text="カードを登録する" data-submit-text="カードを登録する"></script>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</main>

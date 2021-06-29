@@ -1,0 +1,39 @@
+<div class="w-75">
+
+  <h1>受注一覧</h1>
+
+  <div class="w-75">
+    <%= form_with url: dashboard_orders_path, method: :get, local: true do |f| %>
+      <div class="d-flex flex-inline form-group">
+        <div class="d-flex align-items-center">
+          注文番号
+        </div>
+        <%= f.text_field :code, value: @code, class: "form-controll ml-2 w-50", placeholder: "12345678" %>
+      </div>
+      <%= f.submit "検索", class: "btn samazon-submit-button" %>
+    <% end %>
+  </div>
+
+  <table class="table mt-5">
+    <thead>
+      <tr>
+        <th scope="col" class="w-25">注文番号</th>
+        <th scope="col">注文者名</th>
+        <th scope="col">注文日時</th>
+        <th scope="col">購入金額</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+      <tr>
+        <td class="align-middle" scope="row"><%= order[0] %></td>
+        <td class="align-middle"><%= order[1][:user_name] %></td>
+        <td class="align-middle"><%= order[1][:updated_at] %></td>
+        <td class="align-middle"><%= order[1][:price_total] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @orders_array %>
+</div>

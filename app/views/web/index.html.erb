@@ -5,105 +5,49 @@
     <div class="col-9">
       <h1>おすすめ商品</h1>
       <div class="row">
-        <div class="col-4">
-          <%= link_to "#", class: "img-thumbnail" do %>
-            <%= image_tag "/images/orange.png", class: "img-thumbnail"%>
-          <% end %>
-          <div class="row">
+        <% @recommend_products.each do |recommend_product| %>
+         <div class="col-4">
+           <%= link_to product_path(recommend_product) do %>
+            <% if recommend_product.image.attached? %>
+              <%= image_tag recommend_product.image, class: "img-thumbnail" %>
+            <% else %>
+              <%= image_tag "/images/dummy.png", class: "img-thumbnail" %>
+            <% end %>
+           <% end %>
+           <div class="row">
              <div class="col-12">
-              <p class="samazon-product-label mt-2">
-                旬のオレンジ詰め合わせ<br>
-                <label>￥2000</label>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-4">
-          <%= link_to "#", class: "img-thumbnail" do %>
-            <%= image_tag "/images/pan.png", class: "img-thumbnail"%>
-          <% end %>
-          <div class="row">
-            <div class="col-12">
-              <p class="samazon-product-label mt-2">
-                フライパン20cm 鉄製 業務用<br>
-                <label>￥5000</label>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-4">
-          <%= link_to "#", class: "img-thumbnail" do %>
-            <%= image_tag "/images/meat.png", class: "img-thumbnail"%>
-          <% end %>
-          <div class="row">
-            <div class="col-12">
-              <p class="samazon-product-label mt-2">
-                和牛ロース200g 2枚入り<br>
-                <label>￥8200</label>
-              </p>
-            </div>
-          </div>
-        </div>
+               <p class="samazon-product-level mt-2">
+                 <%= recommend_product.name %>
+                 <label>￥<%= recommend_product.price %>
+               </p>
+             </div>
+           </div>
+         </div>
+        <% end %>
 
       </div>
 
       <h1>新着商品</h1>
       <div class="row">
+        <% @recently_products.each do |recently_product| %>
         <div class="col-3">
-          <%= link_to "#", class: "img-thumbnail" do %>
-            <%= image_tag "/images/panasonic.png", class: "img-thumbnail"%>
+          <%= link_to product_path(recently_product) do %>
+           <% if recently_product.image.attached? %>
+             <%= image_tag recently_product.image, class: "img-thumbnail" %>
+           <% else %>
+             <%= image_tag "/images/dummy.png", class: "img-thumbnail" %>
+           <% end %>
           <% end %>
           <div class="row">
             <div class="col-12">
-              <p class="samazon-product-label mt-2">
-                掃除機本体 Panasonic<br>
-                <label>￥15000</label>
+              <p class="samazon-product-level mt-2">
+                <%= recently_product.name %>
+                <label>￥<%= recently_product.price %>
               </p>
             </div>
           </div>
         </div>
-
-        <div class="col-3">
-          <%= link_to "#", class: "img-thumbnail" do %>
-            <%= image_tag "/images/sofa.png", class: "img-thumbnail"%>
-          <% end %>
-          <div class="row">
-            <div class="col-12">
-              <p class="samazon-product-label mt-2">
-              3人掛けソファー ブラウン<br>
-              <label>￥35000</label>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <%= link_to "#", class: "img-thumbnail" do %>
-          <%= image_tag "/images/item.png", class: "img-thumbnail"%>
         <% end %>
-        <div class="row">
-          <div class="col-12">
-            <p class="samazon-product-label mt-2">
-              柔軟剤 詰め替え 2L<br>
-              <label>￥1000</labiel>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <%= link_to "#", class: "img-thumbnail" do %>
-          <%= image_tag "/images/goods.png", class: "img-thumbnail"%>
-        <% end %>
-        <div class="row">
-          <div class="col-12">
-            <p class="samazon-product-label mt-2">
-              食器 カトラリーセット1組<br>
-              <label>￥2000</label>
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   </div>
